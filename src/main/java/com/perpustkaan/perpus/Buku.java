@@ -16,6 +16,7 @@ public class Buku {
   private String judul;
   private String penulis;
   private int tahunTerbit;
+  private String kategori;
 
   // Constructors
   public Buku() {
@@ -25,6 +26,10 @@ public class Buku {
     this.judul = judul;
     this.penulis = penulis;
     this.tahunTerbit = tahunTerbit;
+  }
+
+  public String getKategori() {
+    return kategori;
   }
 
   public Long getId() {
@@ -57,6 +62,10 @@ public class Buku {
 
   public void setTahunTerbit(int tahunTerbit) {
     this.tahunTerbit = tahunTerbit;
+  }
+
+  public void setKategori(String kategori) {
+    this.kategori = kategori;
   }
 
 }
