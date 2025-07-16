@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tambah Buku</title>
+</head>
+<body>
+  <h2>Form Tambah Buku</h2>
+
+  <form id="bukuForm">
+    <label for="judul">Judul:</label><br>
+    <input type="text" id="judul" name="judul" required><br><br>
+
+    <label for="penulis">Penulis:</label><br>
+    <input type="text" id="penulis" name="penulis" required><br><br>
+
+    <label for="tahun">Tahun Terbit:</label><br>
+    <input type="number" id="tahun" name="tahun" required><br><br>
+
+    <button type="submit">Kirim</button>
+  </form>
+
+  <p id="hasil"></p>
+
+  <script>
+    const form = document.getElementById('bukuForm');
+    const hasil = document.getElementById('hasil');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const data = {
+        judul: document.getElementById('judul').value,
+        penulis: document.getElementById('penulis').value,
+        tahunTerbit: parseInt(document.getElementById('tahun').value)
+      };
+
+      try {
+        const response = await fetch('http://localhost:8080/api/buku', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Gagal menyimpan buku');
+
+        const result = await response.json();
+        hasil.textContent = `Buku berhasil disimpan: ID ${result.id}, Judul ${result.judul}`;
+        form.reset();
+      } catch (err) {
+        hasil.textContent = `Terjadi kesalahan: ${err.message}`;
+      }
+    });
+  </script>
+</body>
+</html>
